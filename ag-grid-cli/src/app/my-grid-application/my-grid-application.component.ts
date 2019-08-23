@@ -55,7 +55,6 @@ export class MyGridApplicationComponent {
     this.dataService.getVideos().subscribe((data: Object[]) =>{
       if ('items' in data) {
         data['items'].forEach((res, index) => {
-          console.log(res);
           this.dataObject.push({
             title: res.snippet.title,
             description: res.snippet.description,
