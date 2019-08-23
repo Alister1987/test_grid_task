@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
   selector: 'app-red-component',
-  templateUrl: './red-component.component.html',
-  styleUrls: ['./red-component.component.css']
+  templateUrl: './red-component.component.html'
 })
-export class RedComponentComponent implements OnInit {
+export class RedComponentComponent {
+  private params: any;
 
-  constructor() { }
-
-  ngOnInit() {
+  agInit(params: any): void {
+    this.params = params;
   }
-
 }
