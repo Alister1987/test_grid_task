@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {GridOptions} from "ag-grid-community";
-import {RedComponentComponent} from "../red-component/red-component.component";
+import { Component, OnInit } from "@angular/core";
+import { GridOptions } from "ag-grid-community";
+import { RedComponentComponent } from "../red-component/red-component.component";
+import { DatatService } from '../services/data.service'
 
 @Component({
   selector: 'app-my-grid-application',
@@ -8,8 +9,10 @@ import {RedComponentComponent} from "../red-component/red-component.component";
 })
 export class MyGridApplicationComponent {
   private gridOptions: GridOptions;
+  private data = [];
+  private gridApi;
 
-  constructor() {
+  constructor(private dataService: DatatService) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = [
       {
@@ -25,10 +28,19 @@ export class MyGridApplicationComponent {
       },
 
     ];
-    this.gridOptions.rowData = [
-      {id: 5, value: 10},
-      {id: 10, value: 15},
-      {id: 15, value: 20}
-    ]
+    this.gridOptions.rowData = this.data;
   }
+
+  ngOnInit () {
+    console.log(this);
+    this.dataService.getVideos().subscribe(data =>{
+      console.log(data);
+      this.gridApi.setRowData([{id: 45, value: 42}]);
+    })
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    
+  };
 }
