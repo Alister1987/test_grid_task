@@ -14,30 +14,51 @@ export class MyGridApplicationComponent {
   private dataObject = [];
 
   constructor(private dataService: DatatService) {
-    this.gridOptions = <GridOptions>{};
-    this.gridOptions.columnDefs = [
-      {
-        headerName: "Title",
-        field: "title",
-        width: 100
-      },
-      {
-        headerName: "Description",
-        field: "description",
-        cellRendererFramework: RedComponentComponent,
-        width: 100
-      },
-
-    ];
-    this.gridOptions.rowData = this.data;
+    this.gridOptions = <GridOptions>{
+      columnDefs: [
+        {
+          headerCheckboxSelection: true,
+          headerName: "Select/Unselect All",
+          field: "checkbox",
+          checkboxSelection: true,
+          width: 170,
+        },
+        {
+          headerName: "Title",
+          field: "title",
+          width: 150
+        },
+        {
+          headerName: "Description",
+          field: "description",
+          width: 150
+        },
+        {
+          headerName: "Published At",
+          field: "publishedAt",
+          width: 150
+        },
+        {
+          headerName: "Video URL",
+          field: "url",
+          width: 300
+        },
+      ],
+      rowData: this.data
+    };
   }
 
   fetchGrid() {
     this.dataService.getVideos().subscribe((data: Object[]) =>{
       if ('items' in data) {
         data['items'].forEach((res, index) => {
-          console.log(res.snippet.description);
-          this.dataObject.push({title: 45, description: res.snippet.description});
+          console.log(res);
+          this.dataObject.push({
+            title: res.snippet.title,
+            description: res.snippet.description,
+            publishedAt: res.snippet.publishedAt,
+            url: 'https://www.youtube.com/watch?v='+res.id.videoId,
+          });
         })
         this.gridApi.setRowData(this.dataObject);
       }
