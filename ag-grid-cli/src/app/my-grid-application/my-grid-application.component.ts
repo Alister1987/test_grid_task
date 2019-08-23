@@ -26,7 +26,7 @@ export class MyGridApplicationComponent {
         {
           headerName: "Title",
           field: "title",
-          width: 150
+          width: 220
         },
         {
           headerName: "Description",
@@ -41,7 +41,10 @@ export class MyGridApplicationComponent {
         {
           headerName: "Video URL",
           field: "url",
-          width: 300
+          width: 300,
+          cellRenderer: function(params) {
+            return '<a href="'+params.value+'" target="_blank">'+ params.value+'</a>'
+          }
         },
       ],
       rowData: this.data
