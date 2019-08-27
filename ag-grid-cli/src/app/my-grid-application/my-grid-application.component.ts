@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
-import { RedComponentComponent } from "../red-component/red-component.component";
 import { DatatService } from '../services/data.service'
 
 @Component({
@@ -15,13 +14,18 @@ export class MyGridApplicationComponent {
 
   constructor(private dataService: DatatService) {
     this.gridOptions = <GridOptions>{
+      rowSelection: "multiple",
+      rowMultiSelectWithClick: true,
+      onSelectionChanged: function () {
+        console.log('asd', this.api.getSelectedRows().length);
+      },
       columnDefs: [
         {
           headerCheckboxSelection: true,
           headerName: "Select/Unselect All",
           field: "checkbox",
           checkboxSelection: true,
-          width: 170,
+          width: 170
         },
         {
           headerName: "Title",
