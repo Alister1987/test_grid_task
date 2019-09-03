@@ -17,7 +17,7 @@ export class MyGridApplicationComponent {
       rowSelection: "multiple",
       rowMultiSelectWithClick: true,
       onSelectionChanged: function () {
-        console.log('asd', this.api.getSelectedRows().length);
+        console.log(this.api.getSelectedRows().length);
       },
       columnDefs: [
         {
